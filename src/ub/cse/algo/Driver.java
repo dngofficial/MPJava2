@@ -12,12 +12,14 @@ public class Driver { // testing in process!
     private static int problem = 2;
 
     public static void main(String[] args) {
-        if (args.length != 1) {
+        /*if (args.length != 1) {
 			System.out.println("Please provide the testcase filepath as a command line argument");
 			return;
-		}
-		Driver.filename= args[0];
-        
+		}*/
+		//Driver.filename= args[0];
+        Driver.filename= "testcases/input1.txt";
+
+
         MPUtility mpu = new MPUtility(Driver.problem);
         Graph graph = mpu.readFile(Driver.filename);
         Info info = mpu.readInfo(Driver.filename + "-info");

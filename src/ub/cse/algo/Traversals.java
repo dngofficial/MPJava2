@@ -59,6 +59,7 @@ class Traversals {
         int[] priors = new int[graph.size()];
         Arrays.fill(priors, -1);
 
+
         // Run BFS, finding the nodes parent in the shortest path
         Queue<Integer> searchQueue = new LinkedList<>();
         searchQueue.add(graph.contentProvider);
