@@ -17,7 +17,7 @@ public class Driver { // testing in process!
 			return;
 		}*/
 		//Driver.filename= args[0];
-        Driver.filename= "testcases/input1.txt";
+        Driver.filename= "testcases/test.txt";
 
 
         MPUtility mpu = new MPUtility(Driver.problem);

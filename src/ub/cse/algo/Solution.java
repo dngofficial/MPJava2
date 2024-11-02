@@ -44,7 +44,10 @@ public class Solution {
         }
         System.out.println("running");*/
 
-        HashMap<Integer, ArrayList<Integer>> normalBFSpaths = bfsPaths(graph, clients);
+       // HashMap<Integer, ArrayList<Integer>> normalBFSpaths = bfsPaths(graph, clients);
+
+        HashMap<Integer, Boolean> ClientCheck = new HashMap<>();
+
 
         HashMap<Integer, Integer> store = new HashMap<>();
 
@@ -59,6 +62,12 @@ public class Solution {
             store.put(i, -1);
         }
 
+        for (Client client : clients){
+            ClientCheck.put(client.id, true);
+        }
+
+
+
         //int[] entryarr = {1, 1};
         //todo.add(entryarr);
 
@@ -68,15 +77,11 @@ public class Solution {
             int[] extraced_node = todo.poll();
             boolean ignore_client = false;
 
-            for (Client client : clients) {
-                if (client.id == extraced_node[0]) {
+                if (ClientCheck.get(extraced_node[0]) != null || extraced_node[1]  > 1) {
                     ignore_client = true;
                     //System.out.println("not client");
-
-                    break;
-
                 }
-            }
+
 
             if (!ignore_client) {
                 store.put(extraced_node[0], 1);
@@ -144,16 +149,25 @@ public class Solution {
         Queue<Integer> searchQueue = new LinkedList<>();
         searchQueue.add(graph.contentProvider);
         while (!searchQueue.isEmpty()) {
+
             int node = searchQueue.poll();
+            //System.out.println(node);
+
             if (store.get(node) != 1) {
                 for (int neighbor : graph.get(node)) {
                     if (priors[neighbor] == -1 && neighbor != graph.contentProvider && store.get(node) != 1) {
+
+                        //System.out.println("parent of neighbor");
+
                         priors[neighbor] = node;
                         searchQueue.add(neighbor);
+
                     }
                 }
             }
         }
+
+        //System.out.println(store.toString());
 
         HashMap<Integer, ArrayList<Integer>> paths = new HashMap<>(clients.size());
         // For every client, traverse the prior array, creating the path
@@ -259,7 +273,7 @@ public class Solution {
 
 
 
-//System.out.println(paths);
+System.out.println(paths);
 
         HashMap<Integer, Integer> priorities = new HashMap<Integer, Integer>();
         for (Client client : clients) {
