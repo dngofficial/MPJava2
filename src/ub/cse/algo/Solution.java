@@ -287,7 +287,7 @@ System.out.println(paths);
 
            // System.out.println(client.payment);
 
-            if (client.alpha > 10.5) {
+            if (client.payment  > 99999999) {
                 comparelist.put(client.id, normalBFSpaths.get(client.id));
             }else {
                 comparelist.put(client.id, paths.get(client.id));
