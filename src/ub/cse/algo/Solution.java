@@ -44,7 +44,9 @@ public class Solution {
         }
         System.out.println("running");*/
 
-       // HashMap<Integer, ArrayList<Integer>> normalBFSpaths = bfsPaths(graph, clients);
+       HashMap<Integer, ArrayList<Integer>> normalBFSpaths = bfsPaths(graph, clients);
+
+        System.out.println(Collections.max(bandwidths));
 
         HashMap<Integer, Boolean> ClientCheck = new HashMap<>();
 
@@ -77,7 +79,7 @@ public class Solution {
             int[] extraced_node = todo.poll();
             boolean ignore_client = false;
 
-                if (ClientCheck.get(extraced_node[0]) != null || extraced_node[1]  > 1) {
+                if (ClientCheck.get(extraced_node[0]) != null || extraced_node[1]  > 8 ) {
                     ignore_client = true;
                     //System.out.println("not client");
                 }
@@ -274,12 +276,25 @@ public class Solution {
 
 
 System.out.println(paths);
+        System.out.println(normalBFSpaths);
+
+
+        HashMap<Integer, ArrayList<Integer>> comparelist = new HashMap();
+
 
         HashMap<Integer, Integer> priorities = new HashMap<Integer, Integer>();
         for (Client client : clients) {
+
+           // System.out.println(client.payment);
+
+            if (client.alpha > 10.5) {
+                comparelist.put(client.id, normalBFSpaths.get(client.id));
+            }else {
+                comparelist.put(client.id, paths.get(client.id));
+            }
             priorities.put(client.id, client.priority);
         }
-        SolutionObject sol = new SolutionObject(paths, priorities, bandwidths);
+        SolutionObject sol = new SolutionObject(comparelist, priorities, bandwidths);
         /* TODO: Your solution goes here */
         return sol;
 
